@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+    <style>
+      .Top{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+      }
+      h1{
+        font-size: 30px;
+        margin: 31px 81px;
+      }
+      .TopItems{
+        padding: 5px;
+        position: relative;
+        top:32px;
+        font-size: 20px;
+      }
+      .TopButtons{
+        position: relative;
+        top: 30px;
+      }
+      span{
+        margin:10px
+      }
+      .loginicon{
+        font-size: 25px;
+        position: relative;
+        top: 5px
+        ;
+      }
+      a{
+        color: black;
+        text-decoration: none;
+        border: 1px solid gray;
+        padding:5px;
+        border-radius: 5px;
+        margin: 5px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .section2 img{
+        border-radius:10px;
+        width:100%
+      }
+       h2{
+        font-size: 35px;
+      }
+      .imgtopcontent p{
+        font-size: 20px;
+      }
+      .imgtopcontent{
+        z-index:1000;
+        position: absolute;
+        top:45%;
+        left:7%;
+        color:lightgray;
+      }
+      .LatestProd{
+        text-align: center;
+      }
+      .LPheadings{
+        display: flex;
+        justify-content: center;
+        margin: 20px ;
+      }
+      .images{
+        height:250px;
+        width: 150px;
+      }
+      .items{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+      }
+      .itemsdiv{
+        border: 2px solid gray;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+        /* align-items: center;
+        justify-content: center; */
+      }
+       .items p{
+        font-size: 20px;
+        white-space: nowrap; 
+         width:400px; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .items aside{
+        font-size: 25px;
+        white-space: nowrap; 
+         width: 200px;    
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+    </style>
+</head>
+<body>
+    <section class="Top">
+      <div class="headDiv"> <h1>Ecommerce</h1></div>
+      <div class="TopItems">
+        <span>Home</span>
+        <span>Products</span>
+        <span>About</span>
+        <span>Contact</span>
+    </div>
+      <div class="TopButtons">
+        <a href=""><ion-icon name="log-in-sharp" class="loginicon"></ion-icon><span>Login</span></a>
+        <a href=""> <ion-icon name="person-add-sharp"></ion-icon><span>Register</span></a>
+        <a href=""> <ion-icon name="cart-sharp"></ion-icon><span>Cart</span></a>
+      </div>
+    </section>
+    <section class="section2">
+        <img src="./source files/main.png.jpg" alt="">
+        <div class="imgtopcontent ">
+            <h2>New Season Arrivals</h2>
+            <p>This is a wider card with supporting text below as a natural lead-in to additional content .This content is a little bit longer. </p>
+        </div>
+    </section>
+    <section class="LatestProd">
+        <h2>Latest Products</h2>
+        <hr style="margin: 0px 70px;">
+        <div class="LPheadings">
+           <a id="all"> All</a>
+           <a id="mensprod">Men's Clothing</a>
+           <a id="womensprod">Women's Clothing</a>
+           <a id="jewelery">Jewelery</a>
+           <a id="electronics">Electronics</a>
+        </div>
+    </section>
+    <section class="LPcontainer">
+     <div class="items">
+        
+     </div>
+    </section>
+
+</body>
+<script>
+
+    let itmesEle=document.querySelector(".items")
+    let allEle=document.querySelector("#all")
+    let mensprodEle=document.querySelector("#mensprod")
+    let womensprodEle=document.querySelector("#womensprod")
+    let jeweleryEle=document.querySelector("#jewelery")
+    // fetch("https://fakestoreapi.com/products").then((respose)=>{
+    //     return respose.json()
+    // }).then((data)=>{console.log(data)}).catch((err)=>{console.log(err)
+    // })
+
+    const dataArr=[]
+     async function datahandler() {
+        let promise= await fetch("https://fakestoreapi.com/products")
+        let data= await promise.json()
+         data.forEach((ele)=>{
+            dataArr.push(ele)
+         })
+         allHandler(data)
+         allclothHandler(data)
+         mensclothHandler(data)
+         womensclothHandler(data)
+         console.log(dataArr);
+         
+     }
+        
+     datahandler()
+
+    
+
+    function allHandler(source){
+        
+        source.forEach((ele)=>{
+        let imgdiv=`<div class="itemsdiv">
+                        <img src=${ele.image} class="images">
+                         <br><br>
+                        <aside>${ele.title} </aside>
+                         <p>${ele.description}</p>
+                         <br>
+                         <hr>$
+                         ${ele.price}
+                         <hr>
+                         <br>
+                         <br>
+                         <a>Details</a>
+                        <a>Add to Cart</a>
+                    </div>`
+        itmesEle.insertAdjacentHTML("beforeend",imgdiv)
+    })
+    }
+    
+    function allclothHandler(source){
+          allEle.addEventListener("click",()=>{
+              let alldivs=``
+              source.forEach((ele)=>{
+                let alldiv=`<div class="itemsdiv">
+                                <img src=${ele.image} class="images">
+                                <br><br>
+                                <aside>${ele.title} </aside>
+                                <p>${ele.description}</p>
+                                <br>
+                                <hr>$
+                                ${ele.price}
+                                <hr>
+                                <br>
+                                <br>
+                                <a>Details</a>
+                                <a>Add to Cart</a>
+                            </div>`
+                alldivs+=alldiv            
+              })
+            itmesEle.innerHTML=alldivs
+            console.log(alldivs);
+            
+          }) 
+
+    }
+
+    function mensclothHandler(source){
+        mensprodEle.addEventListener("click",()=>{
+            let filterArr= source.filter((ele)=>{
+               return ele.category==="men's clothing"
+            })
+            console.log(filterArr);
+            // let mensdivs=`<div></div>`
+               let mensdivs=""
+            filterArr.forEach((ele)=>{
+                // let mensdiv=document.createElement("div")
+               
+                let mensdiv=`<div class="itemsdiv">
+                                <img src=${ele.image} class="images">
+                                <br><br>
+                                <aside>${ele.title} </aside>
+                                <p>${ele.description}</p>
+                                <br>
+                                <hr>$
+                                ${ele.price}
+                                <hr>
+                                <br>
+                                <br>
+                                <a>Details</a>
+                                <a>Add to Cart</a>
+                            </div>`
+                // mensdiv.appendChild(mensdivs)
+                mensdivs+=mensdiv
+                // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
+             })
+             itmesEle.innerHTML=mensdivs
+        
+        })
+    }
+ 
+    function womensclothHandler(source){
+        womensprodEle.addEventListener("click",()=>{
+            let filterArr= source.filter((ele)=>{
+               return ele.category==="women's clothing"
+            })
+               
+            let womensdivs=``
+
+            filterArr.forEach((ele)=>{
+                let womensdiv=`<div class="itemsdiv">
+                                <img src=${ele.image} class="images">
+                                <br><br>
+                                <aside>${ele.title} </aside>
+                                <p>${ele.description}</p>
+                                <br>
+                                <hr>$
+                                ${ele.price}
+                                <hr>
+                                <br>
+                                <br>
+                                <a>Details</a>
+                                <a>Add to Cart</a>
+                            </div>`
+                // mensdiv.appendChild(mensdivs)
+                womensdivs+=womensdiv
+                // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
+             })
+             itmesEle.innerHTML=womensdivs
+        
+        })
+    }
+    
+  jeweleryEle.addEventListener("click",()=>{
+          let filterArr= dataArr.filter((ele)=>{
+          return ele.category==="jewelery"
+      })
+       let jewelery=""
+       filterArr.forEach((ele)=>{
+                let jewelerydiv=`<div class="itemsdiv">
+                                <img src=${ele.image} class="images">
+                                <br><br>
+                                <aside>${ele.title} </aside>
+                                <p>${ele.description}</p>
+                                <br>
+                                <hr>$
+                                ${ele.price}
+                                <hr>
+                                <br>
+                                <br>
+                                <a>Details</a>
+                                <a>Add to Cart</a>
+                             </div>`
+                     jewelery+=jewelerydiv        
+                 }) 
+        itmesEle.innerHTML=  jewelery                      
+  }) 
+
+
+
+
+
+    
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</html>
