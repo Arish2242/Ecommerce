@@ -8,7 +8,9 @@
       .Top{
         display:grid;
         grid-template-columns:repeat(3,1fr);
-      }
+        background-color: lightgray;
+        border-radius: 10px;
+      } 
       h1{
         font-size: 30px;
         margin: 31px 81px;
@@ -42,6 +44,12 @@
         font-size: 20px;
         cursor: pointer;
       }
+      a:hover{
+        background-color: lightgray;
+      }
+      a:visited{
+        background-color: grey;
+      }
       .section2 img{
         border-radius:10px;
         width:100%
@@ -74,6 +82,7 @@
       .items{
         display: grid;
         grid-template-columns: repeat(3,1fr);
+        justify-content: center ;
       }
       .itemsdiv{
         border: 2px solid gray;
@@ -97,17 +106,20 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-
+      footer{
+        text-align: center;
+        font-size: 20px;
+      }
     </style>
 </head>
 <body>
     <section class="Top">
       <div class="headDiv"> <h1>Ecommerce</h1></div>
       <div class="TopItems">
-        <span>Home</span>
-        <span>Products</span>
-        <span>About</span>
-        <span>Contact</span>
+        <a href="./index.html" style="border-width:0px;">Home</a>
+        <a href="./Product_Details.html" style="border-width:0px;">Products</a>
+        <a style="border-width:0px;">About</a>
+        <a style="border-width:0px;">Contact</a>
     </div>
       <div class="TopButtons">
         <a href=""><ion-icon name="log-in-sharp" class="loginicon"></ion-icon><span>Login</span></a>
@@ -138,184 +150,16 @@
         
      </div>
     </section>
-
+    <br>
+    <br>
+    <br>
+    <footer>
+    <span>Made with ❤️ by Arish  </span>
+    </footer>
+  <script src="./Ecommerce.js">    
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>   
 </body>
-<script>
 
-    let itmesEle=document.querySelector(".items")
-    let allEle=document.querySelector("#all")
-    let mensprodEle=document.querySelector("#mensprod")
-    let womensprodEle=document.querySelector("#womensprod")
-    let jeweleryEle=document.querySelector("#jewelery")
-    // fetch("https://fakestoreapi.com/products").then((respose)=>{
-    //     return respose.json()
-    // }).then((data)=>{console.log(data)}).catch((err)=>{console.log(err)
-    // })
-
-    const dataArr=[]
-     async function datahandler() {
-        let promise= await fetch("https://fakestoreapi.com/products")
-        let data= await promise.json()
-         data.forEach((ele)=>{
-            dataArr.push(ele)
-         })
-         allHandler(data)
-         allclothHandler(data)
-         mensclothHandler(data)
-         womensclothHandler(data)
-         console.log(dataArr);
-         
-     }
-        
-     datahandler()
-
-    
-
-    function allHandler(source){
-        
-        source.forEach((ele)=>{
-        let imgdiv=`<div class="itemsdiv">
-                        <img src=${ele.image} class="images">
-                         <br><br>
-                        <aside>${ele.title} </aside>
-                         <p>${ele.description}</p>
-                         <br>
-                         <hr>$
-                         ${ele.price}
-                         <hr>
-                         <br>
-                         <br>
-                         <a>Details</a>
-                        <a>Add to Cart</a>
-                    </div>`
-        itmesEle.insertAdjacentHTML("beforeend",imgdiv)
-    })
-    }
-    
-    function allclothHandler(source){
-          allEle.addEventListener("click",()=>{
-              let alldivs=``
-              source.forEach((ele)=>{
-                let alldiv=`<div class="itemsdiv">
-                                <img src=${ele.image} class="images">
-                                <br><br>
-                                <aside>${ele.title} </aside>
-                                <p>${ele.description}</p>
-                                <br>
-                                <hr>$
-                                ${ele.price}
-                                <hr>
-                                <br>
-                                <br>
-                                <a>Details</a>
-                                <a>Add to Cart</a>
-                            </div>`
-                alldivs+=alldiv            
-              })
-            itmesEle.innerHTML=alldivs
-            console.log(alldivs);
-            
-          }) 
-
-    }
-
-    function mensclothHandler(source){
-        mensprodEle.addEventListener("click",()=>{
-            let filterArr= source.filter((ele)=>{
-               return ele.category==="men's clothing"
-            })
-            console.log(filterArr);
-            // let mensdivs=`<div></div>`
-               let mensdivs=""
-            filterArr.forEach((ele)=>{
-                // let mensdiv=document.createElement("div")
-               
-                let mensdiv=`<div class="itemsdiv">
-                                <img src=${ele.image} class="images">
-                                <br><br>
-                                <aside>${ele.title} </aside>
-                                <p>${ele.description}</p>
-                                <br>
-                                <hr>$
-                                ${ele.price}
-                                <hr>
-                                <br>
-                                <br>
-                                <a>Details</a>
-                                <a>Add to Cart</a>
-                            </div>`
-                // mensdiv.appendChild(mensdivs)
-                mensdivs+=mensdiv
-                // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
-             })
-             itmesEle.innerHTML=mensdivs
-        
-        })
-    }
- 
-    function womensclothHandler(source){
-        womensprodEle.addEventListener("click",()=>{
-            let filterArr= source.filter((ele)=>{
-               return ele.category==="women's clothing"
-            })
-               
-            let womensdivs=``
-
-            filterArr.forEach((ele)=>{
-                let womensdiv=`<div class="itemsdiv">
-                                <img src=${ele.image} class="images">
-                                <br><br>
-                                <aside>${ele.title} </aside>
-                                <p>${ele.description}</p>
-                                <br>
-                                <hr>$
-                                ${ele.price}
-                                <hr>
-                                <br>
-                                <br>
-                                <a>Details</a>
-                                <a>Add to Cart</a>
-                            </div>`
-                // mensdiv.appendChild(mensdivs)
-                womensdivs+=womensdiv
-                // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
-             })
-             itmesEle.innerHTML=womensdivs
-        
-        })
-    }
-    
-  jeweleryEle.addEventListener("click",()=>{
-          let filterArr= dataArr.filter((ele)=>{
-          return ele.category==="jewelery"
-      })
-       let jewelery=""
-       filterArr.forEach((ele)=>{
-                let jewelerydiv=`<div class="itemsdiv">
-                                <img src=${ele.image} class="images">
-                                <br><br>
-                                <aside>${ele.title} </aside>
-                                <p>${ele.description}</p>
-                                <br>
-                                <hr>$
-                                ${ele.price}
-                                <hr>
-                                <br>
-                                <br>
-                                <a>Details</a>
-                                <a>Add to Cart</a>
-                             </div>`
-                     jewelery+=jewelerydiv        
-                 }) 
-        itmesEle.innerHTML=  jewelery                      
-  }) 
-
-
-
-
-
-    
-</script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </html>
