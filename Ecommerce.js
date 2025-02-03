@@ -201,14 +201,24 @@ let filterArr= dataArr.filter((ele)=>{
 })
 
 itmesEle.addEventListener("click", (e) => {
-
-    
+   
     if (e.target.classList.contains("detailsBtn")) {
         let ID = e.target.dataset.id;
         localStorage.setItem("id", ID); 
     }
-    console.log(localStorage.getItem("fsdsdfsdfd"));
+    console.log(localStorage.getItem("fsdsdfsdfd"));    
+})
+
+const prodEle=document.querySelector(".products")
+console.log(prodEle);
+
+prodEle.addEventListener("click",(e)=>{
+    let value=e.target.dataset.id
+    console.log(value);
     
-});
+    localStorage.setItem("id",value)
+    console.log(localStorage.getItem("id"));
+    
+})
 
 

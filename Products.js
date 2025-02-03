@@ -3,7 +3,7 @@ const btns=document.querySelectorAll(".LP_buttons")
 const mainEle=document.querySelector(".mainsection")
 console.log(btns);
 
-
+let prodlocal=localStorage.getItem("id")
 let sourceArr=[];
 async function datahandler(){
         let response= await fetch("https://fakestoreapi.com/products")
@@ -12,13 +12,22 @@ async function datahandler(){
             sourceArr.push(ele)
         })
        console.log(data);
+       if(prodlocal=="details"){
+         allhandler(data)
+       }   
+       else{
+        details(data)
+       }     
        
-        allhandler(data)
-        // details(data)
 }
 datahandler()
 
-      
+    
+
+ 
+
+ 
+
     function allhandler(source){
         let  allitems=""
         let btnsArr=[]
@@ -52,7 +61,8 @@ datahandler()
                 })
                 console.log(filterDetail);
                 
-                let filterDiv=`<div class="imgdiv1">
+            let filterDiv=      `<div class=fltrdetails>    
+                                    <div class="imgdiv1">
                                         <img src=${filterDetail[0].image} class="images">
                                     </div>
                                     <br><br>
@@ -70,11 +80,13 @@ datahandler()
                                         <br>
                                         <a data-id=${filterDetail[0].id} >Add to Cart</a>
                                         <a>Go to Cart </a>
-                                    </div>`  
+                                    </div>
+                                </div>`      
                 mainEle.innerHTML=filterDiv                     
             })
         })        
     }
+   
     // {
         // console.log(btnele);
         
@@ -92,7 +104,36 @@ datahandler()
         //     })
         // })
     // }
+ 
+
     
+    function details(source){
+     let y= source.filter((ele)=>{
+           return ele.id==prodlocal
+      })
+
+      let electronicsdiv=`<div class="imgdiv">
+                             <img src=${y[0].image} class="images">
+                          </div>
+                          <br><br>
+                          <div class="contentDiv">
+                              <h2>${y[0].category}</h2>
+                              <br>
+                              <aside>${y[0].title} </aside>
+                              <br>
+                              <span>${y[0].rating.rate} <ion-icon name="star"></ion-icon></span>
+                              <br>
+                              <p>${y[0].description}</p>
+                              <br>
+                              <aside>$ ${y[0].price} </aside>                               
+                              <br>
+                              <br>
+                              <a data-id=${y[0].id} >Add to Cart</a>
+                              <a>Go to Cart </a>
+                       </div>`
+          secEle.innerHTML=electronicsdiv    
+    }
+
     
     btns.forEach((button)=>{
         button.addEventListener("click",()=>{
@@ -121,33 +162,7 @@ datahandler()
     //   }
     // })
 
-    //   x=localStorage.getItem("id");
-    //   function details(source){
-    //    let y= source.filter((ele)=>{
-    //          return ele.id==x
-    //     })
-
-    //     let electronicsdiv=`<div class="imgdiv">
-    //                            <img src=${y[0].image} class="images">
-    //                         </div>
-    //                         <br><br>
-    //                         <div class="contentDiv">
-    //                             <h2>${y[0].category}</h2>
-    //                             <br>
-    //                             <aside>${y[0].title} </aside>
-    //                             <br>
-    //                             <span>${y[0].rating.rate} <ion-icon name="star"></ion-icon></span>
-    //                             <br>
-    //                             <p>${y[0].description}</p>
-    //                             <br>
-    //                             <aside>$ ${y[0].price} </aside>                               
-    //                             <br>
-    //                             <br>
-    //                             <a data-id=${y[0].id} >Add to Cart</a>
-    //                             <a>Go to Cart </a>
-    //                      </div>`
-    //         secEle.innerHTML=electronicsdiv    
-    //   }
+    
 
     // detailsBtn.addEventListener("click",(e)=>{
     //     let id=e.target.dataset.id
