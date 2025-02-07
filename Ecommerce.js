@@ -41,7 +41,7 @@ function allHandler(source){
                      <br>
                      <br>
                      <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html" >Details</a>
-                    <a>Add to Cart</a>
+                    <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                 </div>`
     itmesEle.insertAdjacentHTML("beforeend",imgdiv)
 })
@@ -63,8 +63,8 @@ function allclothHandler(source){
                             <hr>
                             <br>
                             <br>
-                            <a data-id=${ele.id}>Details</a>
-                            <a>Add to Cart</a>
+                            <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html">Details</a>
+                            <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                         </div>`
             alldivs+=alldiv
             allEle.style.backgroundColor="grey"
@@ -102,8 +102,8 @@ function mensclothHandler(source){
                             <hr>
                             <br>
                             <br>
-                            <a data-id=${ele.id}>Details</a>
-                            <a>Add to Cart</a>
+                            <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html" >Details</a>
+                            <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                         </div>`
             // mensdiv.appendChild(mensdivs)
             mensdivs+=mensdiv
@@ -138,8 +138,8 @@ function womensclothHandler(source){
                             <hr>
                             <br>
                             <br>
-                            <a data-id=${ele.id} href="">Details</a>
-                            <a>Add to Cart</a>
+                            <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html">Details</a>
+                            <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                         </div>`
             // mensdiv.appendChild(mensdivs)
             womensdivs+=womensdiv
@@ -167,8 +167,8 @@ jeweleryEle.addEventListener("click",()=>{
                             <hr>
                             <br>
                             <br>
-                            <a data-id=${ele.id}>Details</a>
-                            <a>Add to Cart</a>
+                            <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html">Details</a>
+                            <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                          </div>`
                  jewelery+=jewelerydiv        
              }) 
@@ -192,8 +192,8 @@ let filterArr= dataArr.filter((ele)=>{
                             <hr>
                             <br>
                             <br>
-                            <a data-id=${ele.id}>Details</a>
-                            <a>Add to Cart</a>
+                            <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html">Details</a>
+                            <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                          </div>`
                  electronics+=electronicsdiv        
              }) 
@@ -202,11 +202,10 @@ let filterArr= dataArr.filter((ele)=>{
 
 itmesEle.addEventListener("click", (e) => {
    
-    if (e.target.classList.contains("detailsBtn")) {
+    if (e.target.classList.contains("detailsBtn")) {   
         let ID = e.target.dataset.id;
         localStorage.setItem("id", ID); 
-    }
-    console.log(localStorage.getItem("fsdsdfsdfd"));    
+    }    
 })
 
 const prodEle=document.querySelector(".products")
@@ -215,10 +214,74 @@ console.log(prodEle);
 prodEle.addEventListener("click",(e)=>{
     let value=e.target.dataset.id
     console.log(value);
-    
     localStorage.setItem("id",value)
-    console.log(localStorage.getItem("id"));
-    
+    console.log(localStorage.getItem("id")); 
 })
 
+let sum=0;
+let count=0;
+let img=""
+let cart={};
+
+if(localStorage.getItem("count")){
+    count = parseInt(localStorage.getItem("count"));
+}
+if(localStorage.getItem("price")){
+    price= parseInt(localStorage.getItem("price"));
+}
+if(localStorage.getItem("cart")){
+    cart = JSON.parse(localStorage.getItem("cart")); 
+}
+updateCart()
+
+itmesEle.addEventListener("click", (e) => {
+   
+    if (e.target.classList.contains("cartBtn"))
+    {  
+       const cartbtns= document.querySelectorAll(".cartBtn");
+
+       
+        cartbtns.forEach((ele)=>{
+            ele.addEventListener("click", addtocart)
+        })
+    }
+
+})
+
+function addtocart(event){
+    let price =event.target.dataset.price
+    let id=event.target.dataset.id
+    let image =event.target.dataset.img 
+    let title=event.target.dataset.title
+    console.log(event);
+    
+    if(id in cart){
+        cart[id].qty++; 
+    }
+    else{
+        let cartItem={
+            title: title,
+            price: price,
+            image: image,
+            id:id,
+            qty: 1
+        };
+         cart[id]=cartItem
+         count++;
+    }
+    
+    sum+=price;
+    console.log(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log(localStorage.getItem("cart"));
+    updateCart();
+}
+
+function updateCart(){
+    document.querySelector(".count").textContent=count;
+    localStorage.setItem("count",count)
+    // localStorage.setItem("price",price) 
+}
+
+console.log(localStorage.getItem("cart[1].title"));
 
