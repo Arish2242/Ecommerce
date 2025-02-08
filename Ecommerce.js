@@ -1,4 +1,4 @@
-let itmesEle=document.querySelector(".items")
+let itemsEle=document.querySelector(".items")
 let allEle=document.querySelector("#all")
 let mensprodEle=document.querySelector("#mensprod")
 let womensprodEle=document.querySelector("#womensprod")
@@ -43,7 +43,7 @@ function allHandler(source){
                      <a data-id=${ele.id} class="detailsBtn" href="./Product_Details.html" >Details</a>
                     <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                 </div>`
-    itmesEle.insertAdjacentHTML("beforeend",imgdiv)
+    itemsEle.insertAdjacentHTML("beforeend",imgdiv)
 })
   allEle.style.backgroundColor="grey"
 }
@@ -73,7 +73,7 @@ function allclothHandler(source){
             jeweleryEle.style.backgroundColor="white"           
             electronicsEle.style.backgroundColor="white"           
           })
-        itmesEle.innerHTML=alldivs
+        itemsEle.innerHTML=alldivs
         console.log(alldivs);
         
       }) 
@@ -109,7 +109,7 @@ function mensclothHandler(source){
             mensdivs+=mensdiv
             // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
          })
-        itmesEle.innerHTML=mensdivs
+        itemsEle.innerHTML=mensdivs
         // allEle.style.backgroundColor="white"
         // mensprodEle.style.backgroundColor="grey"           
         // womensprodEle.style.backgroundColor="white"           
@@ -145,7 +145,7 @@ function womensclothHandler(source){
             womensdivs+=womensdiv
             // mensdiv.insertAdjacentHTML("beforend",mensdivs)          
          })
-         itmesEle.innerHTML=womensdivs
+         itemsEle.innerHTML=womensdivs
     
     })
 }
@@ -172,7 +172,7 @@ jeweleryEle.addEventListener("click",()=>{
                          </div>`
                  jewelery+=jewelerydiv        
              }) 
-    itmesEle.innerHTML=  jewelery                      
+    itemsEle.innerHTML=  jewelery                      
 }) 
 
 electronicsEle.addEventListener("click",()=>{
@@ -197,10 +197,10 @@ let filterArr= dataArr.filter((ele)=>{
                          </div>`
                  electronics+=electronicsdiv        
              }) 
-    itmesEle.innerHTML=  electronics
+    itemsEle.innerHTML=  electronics
 })
 
-itmesEle.addEventListener("click", (e) => {
+itemsEle.addEventListener("click", (e) => {
    
     if (e.target.classList.contains("detailsBtn")) {   
         let ID = e.target.dataset.id;
@@ -218,10 +218,10 @@ prodEle.addEventListener("click",(e)=>{
     console.log(localStorage.getItem("id")); 
 })
 
-let sum=0;
+
 let count=0;
 let img=""
-let cart={};
+let cart={}
 
 if(localStorage.getItem("count")){
     count = parseInt(localStorage.getItem("count"));
@@ -234,19 +234,12 @@ if(localStorage.getItem("cart")){
 }
 updateCart()
 
-itmesEle.addEventListener("click", (e) => {
-   
-    if (e.target.classList.contains("cartBtn"))
-    {  
-       const cartbtns= document.querySelectorAll(".cartBtn");
-
-       
-        cartbtns.forEach((ele)=>{
-            ele.addEventListener("click", addtocart)
-        })
+itemsEle.addEventListener("click", (e) => {
+    if (e.target.classList.contains("cartBtn")) {  
+        addtocart(e); 
     }
+});
 
-})
 
 function addtocart(event){
     let price =event.target.dataset.price
@@ -254,10 +247,19 @@ function addtocart(event){
     let image =event.target.dataset.img 
     let title=event.target.dataset.title
     console.log(event);
-    
+
+    for(let ele in cart){
+        console.log(cart[ele].qty);
+        
+        if(cart[ele].qty==0) {
+          count++;
+        }
+     }
+
     if(id in cart){
         cart[id].qty++; 
     }
+    
     else{
         let cartItem={
             title: title,
@@ -270,7 +272,8 @@ function addtocart(event){
          count++;
     }
     
-    sum+=price;
+    
+   
     console.log(cart);
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log(localStorage.getItem("cart"));

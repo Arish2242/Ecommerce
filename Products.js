@@ -41,7 +41,7 @@ datahandler()
                      <hr>
                      <br>
                      <br>
-                     <a data-id=${ele.id} class="detailsBtn"  >Details</a>
+                     <a data-id=${ele.id} class="detailsBtn" onclick="window.location.href='./Product_Details.html'" >Details</a>
                     <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image} >Add to Cart</a>
                 </div>`
             allitems+=imgdiv      
@@ -112,10 +112,10 @@ datahandler()
                                         <br>
                                         <br>
                                         <a class="cartBtn" data-id=${y[0].id} data-title=${y[0].title} data-price=${y[0].price} data-img=${y[0].image}>Add to Cart</a>
-                                        <a >Go to Cart </a>
+                                        <a href="./cart.html" style="background-color:black;color:white">Go to Cart </a>
                                     </div>
                                 </div>`
-        mainEle.innerHTML=electronicsdiv 
+        mainEle.innerHTML=electronicsdiv  
       console.log(y);
       
       let suggestion=source.filter((ele)=>{return ele.category==y[0].category})
@@ -169,7 +169,7 @@ function suggestionhandler(source){
                     <aside>${ele.title} </aside>
                     <br>
                     <br>
-                    <a data-id=${ele.id} class="detailsBtn"  >Details</a>
+                    <a data-id=${ele.id} class="detailsBtn" onclick="window.location.href='./Product_Details.html'" >Details</a>
                     <a class="cartBtn" data-id=${ele.id} data-title=${ele.title} data-price=${ele.price} data-img=${ele.image}>Add to Cart</a>
                 </div>`
         allitems+=imgdiv 
@@ -220,7 +220,14 @@ function cartHandler(cartBtns){
             let image =event.target.dataset.img 
             let title=event.target.dataset.title
             console.log("id");
-            
+
+            for(let ele in cart){
+                
+                if(cart[ele].qty==0) {
+                  count++;
+                }
+             }
+
             if(id in cart){
                 cart[id].qty++; 
             }

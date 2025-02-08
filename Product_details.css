@@ -20,8 +20,11 @@ font-size: 20px;
 position: relative;
 top: 30px;
 }
+.count{
+   margin: 0px
+ }
 span{
-margin:10px
+   margin: 10px 5px 10px 10px;
 }
 .loginicon{
 font-size: 25px;

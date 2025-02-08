@@ -14,6 +14,7 @@
             position: sticky;
             width: 99%;
             top:0px;
+            z-index: 1000;
           } 
           h1{
             font-size: 30px;
@@ -29,8 +30,11 @@
             position: relative;
             top: 30px;
           }
+          .count{
+            margin: 0px
+          }
           span{
-            margin:10px
+            margin:10px 5px 10px 10px
           }
           .loginicon{
             font-size: 25px;
@@ -101,15 +105,16 @@
           <a class="products"  data-id="details" href="./Product_Details.html" style="border-width:0px;">Products</a>
           <a style="border-width:0px;" href="./aboutUs.html">About</a>
           <a style="border-width:0px;" href="./contact.html">Contact</a>
-      </div>
+        </div>
         <div class="TopButtons">
           <a href=""><ion-icon name="log-in-sharp" class="loginicon"></ion-icon><span>Login</span></a>
           <a href=""> <ion-icon name="person-add-sharp"></ion-icon><span>Register</span></a>
           <a href="./cart.html"> 
             <ion-icon name="cart-sharp"></ion-icon>
-            <span>Cart</span>
-            <span class="count" style="margin:0px; position:relative;right:10px ; border:2px solid black;border-radius: 100%; padding: 0px 5px; " >(0)</span>
-          </a>        </div>
+            <span>Cart </span>
+            (<span class="count" >0</span>)
+          </a>       
+        </div>
     </section>
     <div class="contactDiv">
         <h2>Contact Us</h2>

@@ -12,7 +12,7 @@
         border-radius: 10px;
         position: sticky;
         top:0px;
-
+        z-index: 1000;
       } 
       h1{
         font-size: 30px;
@@ -29,13 +29,16 @@
         top: 30px;
       }
       span{
-        margin:10px
+        margin:10px 5px 10px 10px
       }
       .loginicon{
         font-size: 25px;
         position: relative;
         top: 5px
         ;
+      }
+      .count{
+        margin: 0px;
       }
       a{
         color: black;
@@ -135,7 +138,7 @@
         <a href="./cart.html"> 
           <ion-icon name="cart-sharp"></ion-icon>
           <span>Cart </span>
-          <span class="count" style="margin:0px; position:relative;right:10px; border:2px solid black;border-radius: 100%; padding: 0px 5px; ">(0)</span>
+          (<span class="count" >0</span>)
         </a>
       </div>
     </section>

@@ -1,3 +1,4 @@
+
 const dataArr=[]
 async function datahandler() {
     let promise= await fetch("https://fakestoreapi.com/products")
@@ -11,39 +12,42 @@ async function datahandler() {
  datahandler()
  count = parseInt(localStorage.getItem("count"));
  document.querySelector(".count").textContent=count;
- 
+ let containerDivEle=document.querySelector(".cart-container")
+
 function cartpage(data){
 
     let cart={}
-    let containerDivEle=document.querySelector(".cart-container")
 
     if(localStorage.getItem("cart")){
         cart=JSON.parse(localStorage.getItem("cart"))
         CartItemsHandler(cart,data)
+       
     }
     else{
-        alert("cart is empty")
-        const text=`<h4>Your Cart is Empty</h4>
-        <a href="./index.html"><-Continue Shopping</a>`
-        containerDivEle.innerHTML=text
-        // let backtoshop = document.createElement("a");
-        // backtoshop.href = "./index.html";
-        // backtoshop.textContent = "Continue Shopping";
-        // containerDivEle.appendChild(backtoshop);  
+         
+         empty()
+        
+            
+       
     }
 
 }   
      
-    function CartItemsHandler(cart,data){
-
-     console.log(data);
-     
-    let items=""
+function empty(){
+    alert("cart is empty")
+    const text=`<h4>Your Cart is Empty</h4>
+    <a href="./index.html"> <ion-icon name="arrow-back-outline"></ion-icon> Continue Shopping</a>`
+    containerDivEle.innerHTML=text
+ }
+function CartItemsHandler(cart,data){
+   
+    let items="" 
     
     for (let ele in cart){
-        let key=cart[ele]
-        let a=`${ele}`
-        let item=`<div class="cart-item">
+        if (cart[ele].qty!==0){
+            let key=cart[ele]
+            let a=`${ele}`
+            let item=`<div class="cart-item">
                     <img src="${key.image}" alt="Backpack">
                     <div class="item-details">
                        <div class="Title">
@@ -59,9 +63,13 @@ function cartpage(data){
                         </div>
                     </div>
                 </div>`
-        items+=item          
+            items+=item        
+        }
+        
+        document.querySelector(".cartitems").innerHTML=items 
+        cartcount() 
     }
-    document.querySelector(".cartitems").innerHTML=items
+    
      let products=0;
       for (let ele in cart){
         products+=cart[ele].qty
@@ -89,11 +97,10 @@ function cartpage(data){
             if(id in cart){
                 cart[id].qty--;
             }
-            if(cart[id].qty==0){
-                cart.filter
-            }
             localStorage.setItem("cart", JSON.stringify(cart));
+           
             CartItemsHandler(cart,data)
+
         })
     })
     const AddEle=document.querySelectorAll(".addition")
@@ -108,4 +115,24 @@ function cartpage(data){
         })
     })
     }
+
+function cartcount(){
+    cart=JSON.parse(localStorage.getItem("cart"))
+    console.log(cart);
+    
+    cartArr=[]
+    for(let ele in cart){
+        cartArr.push(cart[ele])
+    }
+    
+    let updatecount=cartArr.filter((ele)=>ele.qty!=0).length
+    localStorage.setItem("count",updatecount)
+    console.log(updatecount);
+    
+    if(updatecount==0){
+        empty()
+    }
+        document.querySelector(".count").textContent=updatecount;
+    
+}
 
