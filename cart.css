@@ -78,14 +78,14 @@
       }
       .cart-container a{
         position: relative;
-        right: 145px;
+        right: 126px;
         top: 94px;
         height: 30px;
        }
        h4{
         font-size: 30px;
         position: relative;
-        left:75px
+        left:97px
        }
       .cart-item {
           display: flex;
@@ -169,4 +169,6 @@
       footer{
           text-align: center;
           font-size: 20px;
+          position: relative;
+          top: 50px;
       }
