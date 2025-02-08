@@ -5,6 +5,7 @@ grid-template-columns:repeat(3,1fr);
 background-color: lightgray;
 position: sticky;
 top:0px;
+z-index: 1000;
 }
 h1{
 font-size: 30px;
@@ -95,9 +96,23 @@ margin: 10px;
 padding: 10px;
 text-align: center;
 border-radius: 5px;
-/* align-items: center;
-justify-content: center; */
 }
+.itemsdiv1{
+   border: 2px solid gray;
+   margin: 10px;
+   padding: 10px;
+   text-align: center;
+   border-radius: 5px;
+   animation: scrollAnimation 10s linear infinite;
+   }
+@keyframes scrollAnimation {
+   0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+ }
 .itemsdiv a{
    color: white;
    background-color: black;

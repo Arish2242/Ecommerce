@@ -163,7 +163,7 @@ prodEle.addEventListener("click",(e)=>{
 function suggestionhandler(source){
     let  allitems=""
     source.forEach(ele => {
-      let imgdiv=`<div class="itemsdiv">
+      let imgdiv=`<div class="itemsdiv1">
                     <img src=${ele.image} class="images">
                     <br><br>
                     <aside>${ele.title} </aside>
