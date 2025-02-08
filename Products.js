@@ -221,15 +221,13 @@ function cartHandler(cartBtns){
             let title=event.target.dataset.title
             console.log("id");
 
-            for(let ele in cart){
-                
-                if(cart[ele].qty==0) {
-                  count++;
-                }
-             }
+            
 
             if(id in cart){
-                cart[id].qty++; 
+                if(cart[id].qty==0){
+                    count++;
+                  }
+                cart[id].qty++;  
             }
             else{
                 let cartItem={

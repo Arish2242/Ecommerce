@@ -248,16 +248,14 @@ function addtocart(event){
     let title=event.target.dataset.title
     console.log(event);
 
-    for(let ele in cart){
-        console.log(cart[ele].qty);
-        
-        if(cart[ele].qty==0) {
-          count++;
-        }
-     }
+
 
     if(id in cart){
+        if(cart[id].qty==0) {
+            count++;
+          }
         cart[id].qty++; 
+        
     }
     
     else{
