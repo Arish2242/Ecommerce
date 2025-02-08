@@ -283,7 +283,7 @@ function addtocart(event){
 function updateCart(){
     document.querySelector(".count").textContent=count;
     localStorage.setItem("count",count)
-    // localStorage.setItem("price",price) 
+    
 }
 
 console.log(localStorage.getItem("cart[1].title"));

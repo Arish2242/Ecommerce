@@ -23,12 +23,8 @@ function cartpage(data){
         CartItemsHandler(cart,data)
        
     }
-    else{
-         
+    else{  
          empty()
-        
-            
-       
     }
 
 }   
